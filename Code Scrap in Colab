@@ -1,0 +1,37 @@
+!pip install better-bing-image-downloader
+
+import os
+from better_bing_image_downloader import downloader
+
+# List of queries
+queries = ["Chicken Meat"]
+
+# Common parameters
+limit = 850
+adult_filter_off = True
+force_replace = False
+timeout = 10
+filter = "Recipe"
+verbose = True
+badsites = []
+name = 'Image'
+
+# Parent directory for all datasets
+parent_dir = 'datasets'
+
+for query_string in queries:
+    output_dir = os.path.join(parent_dir, query_string.replace(" ", "_"))
+
+    # Download images
+    downloader(query_string, limit=limit, output_dir=parent_dir, adult_filter_off=adult_filter_off,
+                   force_replace=force_replace, timeout=timeout, filter=filter, verbose=verbose,
+                   badsites=badsites, name=name)
+
+    print(f"Images for '{query_string}' downloaded into {output_dir}")
+
+
+!pip install roboflow
+
+!roboflow login
+
+!roboflow import -w <NAMA WORKSAPCE SILAHKAN COPY> -p <NAMA PROJECT silahkan copy> '/content/DB'
